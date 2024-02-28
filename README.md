@@ -1,4 +1,4 @@
-##Social Media Website
+#Social Media Website
 This is a social media website project built using EJS, JavaScript, Express, Node.js, and Sails.js. The website allows users to create posts, like posts, comment on posts, and change their usernames.
 
 ##Features

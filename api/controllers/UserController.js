@@ -113,8 +113,9 @@ module.exports = {
         return res.redirect("/login")
        }
       const user = req.session.user;
-  let newusername = await User.updateOne({ id: user.id }, { username: req.body.username })  
-  let newpostusername = await Posts.update({userid : user.id}, {username : req.body.username})
+      let newusername = await User.updateOne({ id: user.id }, { username: req.body.username });
+      let newpostusername = await Posts.update({ userid: user.id }, { username: req.body.username });
+      let newcommentusername = await Comments.updateOne({ userid: user.id }, { username: req.body.username });
   req.session.user.username = req.body.username; 
   res.redirect("/home");
     }

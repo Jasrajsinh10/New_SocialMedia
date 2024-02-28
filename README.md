@@ -1,26 +1,20 @@
-# new-social-media
+##Social Media Website
+This is a social media website project built using EJS, JavaScript, Express, Node.js, and Sails.js. The website allows users to create posts, like posts, comment on posts, and change their usernames.
 
-a [Sails v1](https://sailsjs.com) application
-
-
-### Links
-
-+ [Sails framework documentation](https://sailsjs.com/get-started)
-+ [Version notes / upgrading](https://sailsjs.com/documentation/upgrading)
-+ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
-+ [Community support options](https://sailsjs.com/support)
-+ [Professional / enterprise options](https://sailsjs.com/enterprise)
-
-
-### Version info
-
-This app was originally generated on Tue Feb 27 2024 11:10:03 GMT+0530 (India Standard Time) using Sails v1.5.9.
-
-<!-- Internally, Sails used [`sails-generate@2.0.9`](https://github.com/balderdashy/sails-generate/tree/v2.0.9/lib/core-generators/new). -->
-
-
-
-<!--
-Note:  Generators are usually run using the globally-installed `sails` CLI (command-line interface).  This CLI version is _environment-specific_ rather than app-specific, thus over time, as a project's dependencies are upgraded or the project is worked on by different developers on different computers using different versions of Node.js, the Sails dependency in its package.json file may differ from the globally-installed Sails CLI release it was originally generated with.  (Be sure to always check out the relevant [upgrading guides](https://sailsjs.com/upgrading) before upgrading the version of Sails used by your app.  If you're stuck, [get help here](https://sailsjs.com/support).)
--->
-
+##Features
+Posts: Users can create posts to share with others.
+Likes: Users can like posts created by other users.
+Comments: Users can comment on posts.
+Username Change: Users have the ability to change their usernames.
+##Technologies Used
+EJS: Embedded JavaScript templating for dynamic content rendering.
+JavaScript: The primary programming language used for client-side interactions.
+Express: A web application framework for Node.js, used for routing and handling HTTP requests.
+Node.js: A JavaScript runtime used for server-side development.
+Sails.js: A Node.js MVC framework used for building web applications with features like data-driven APIs and real-time events.
+##Usage
+Sign up for an account to start using the social media platform.
+Create posts to share with others.
+Like posts created by other users.
+Comment on posts.
+Change your username in the settings.

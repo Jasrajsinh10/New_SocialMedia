@@ -6,11 +6,7 @@
  */
 
 const bcrypt = require("bcrypt");
-
-
-
-
-
+const validator = require("validator");
 
 module.exports = {
 
@@ -39,7 +35,19 @@ module.exports = {
       if (checkemail) {
         req.addFlash('error', 'User with same email already exsists');
           return res.view("signup");
-        }
+      }
+      if (!validator.isLength(req.body.username, { min: 3 })) {
+        req.addFlash('error', 'Name must be at least 3 characters long')
+        return res.redirect('/signup')
+      }
+      if (!validator.isLength(req.body.email, { min: 6 })) {
+        req.addFlash('error', 'email must be at least 6 characters long')
+        return res.redirect('/signup')
+      }
+      if (!validator.isLength(req.body.password, { min: 5 })) {
+        req.addFlash('error', 'Name must be at least 5 characters long')
+        return res.redirect('/signup')
+      }
       else {
         //create a newuser
         const newUser = await User.create({
@@ -113,9 +121,9 @@ module.exports = {
         return res.redirect("/login")
        }
       const user = req.session.user;
-      let newusername = await User.updateOne({ id: user.id }, { username: req.body.username });
-      let newpostusername = await Posts.update({ userid: user.id }, { username: req.body.username });
-      let newcommentusername = await Comments.updateOne({ userid: user.id }, { username: req.body.username });
+      await User.updateOne({ id: user.id }, { username: req.body.username });
+      await Posts.update({ userid: user.id }, { username: req.body.username });
+      await Comments.update({ userid: user.id }, { username: req.body.username });
   req.session.user.username = req.body.username; 
   res.redirect("/home");
     }

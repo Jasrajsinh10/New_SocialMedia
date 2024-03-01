@@ -11,6 +11,14 @@ module.exports={
         password:{
             type:'string',
             required:true
+        },
+        accesstoken: {
+            type: 'string',
+            required: false
+        },
+        comments:{
+            collection: 'Comments',
+            via:'userid'
         }
     }
 }

@@ -68,7 +68,7 @@ module.exports = {
   // User can enter email or username and password 
   postlogin: async (req, res) => {
     try {
-      console.log(req.body);
+      
       let checkuser = await User.findOne({username: req.body.username});
       if (!checkuser) { 
         checkuser = await User.findOne({ email: req.body.username });
@@ -79,9 +79,18 @@ module.exports = {
       }
       else {
         const validPassword = await bcrypt.compare(req.body.password, checkuser.password)
-        if (validPassword) {
-          req.session.user = checkuser;
-          console.log(req.session.user);
+        if (validPassword) { 
+          
+          let token = await sails.helpers.generateToken(checkuser.username, checkuser.email, checkuser.id, "12h");
+          let updatetoken = await User.updateOne({ id: checkuser.id }, { accesstoken: token });
+          if (updatetoken) {
+            res.cookie('Authorization', token, {
+              path: '/',
+              maxAge: 1*60*60*1000,
+              secure: true,
+              httpOnly: true
+            });
+          }
           return res.redirect("/home");
         }
         else {
@@ -98,14 +107,13 @@ module.exports = {
   // Route to home page where all post are shown and session checking 
   gethome: async (req, res) => {
     try {
-      const user = req.session.user;
-      if (user == undefined) {
-        return res.view("login");
-      }
-      else {
+      
+      const user = req.user;
+      
+      console.log()
         const postall = await Posts.find();
         return res.view("home", { user, postall });
-      }
+      
     }
     catch (error) {
       console.log(error);
@@ -117,7 +125,7 @@ module.exports = {
   // edit username 
   editingusername: async (req, res) => {
     try {
-      if (req.session.user == undefined) {
+      if (req.user == undefined) {
         return res.redirect("/login")
        }
       const user = req.session.user;
@@ -135,7 +143,7 @@ module.exports = {
   // logout user
   logout: async (req, res) => {
     try {
-      req.session.user = undefined;
+      res.clearCookie('Authorization');
   return res.redirect("/login");
     }
     catch(err) {

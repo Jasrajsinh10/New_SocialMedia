@@ -60,7 +60,7 @@ module.exports.routes = {
   // Edit Username
   "POST /editusername/:id": "UserController.editingusername",
 
-  // GET all commnets of posts
+  // GET all comments of posts
   "GET /comment/:id": "CommentController.getcomments",
 
   // POST the comment in post

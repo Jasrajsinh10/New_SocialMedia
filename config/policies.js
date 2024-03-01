@@ -18,5 +18,25 @@ module.exports.policies = {
   ***************************************************************************/
 
   // '*': true,
+  UserController: {
+    gethome: "isLoggedIn",
+    
+  },
+  PostsController: {
+    
+    getPostCreation: "isLoggedIn",
+    postPostCreation: "isLoggedIn",
+    postlike: "isLoggedIn",
+    getmypost: "isLoggedIn",
+    deletepost: "isLoggedIn",
+    editingpost: "isLoggedIn",
+    editpost: "isLoggedIn"
+  },
+  CommentController: {
+    getcomments: "isLoggedIn",
+    postcomment: "isLoggedIn",
+    deletecomment: "isLoggedIn",
+  }
+
 
 };

@@ -9,6 +9,7 @@
     "@sailshq/lodash": "^3.10.3",
     "@sailshq/socket.io-redis": "^6.1.2",
     "bcrypt": "^5.1.1",
+    "dotenv": "^16.4.5",
     "express-validators": "^1.0.4",
     "grunt": "1.0.4",
     "jsonwebtoken": "^9.0.2",

@@ -18,7 +18,7 @@ module.exports = {
 
     // Reference to the user who created the post
     userid: {
-      type: 'string', // Assuming user ID is stored as a string
+      model:'User', // Assuming user ID is stored as a string
       required: true
     },
 

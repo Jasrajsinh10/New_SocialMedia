@@ -20,6 +20,8 @@ module.exports.policies = {
   // '*': true,
   UserController: {
     gethome: "isLoggedIn",
+    getsignup: "isLoggedIn",
+    getlogin: "isLoggedIn",
     
   },
   PostsController: {

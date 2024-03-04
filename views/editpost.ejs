@@ -2,7 +2,7 @@
 <div class="card" id="maincss">
   <h2>Edit your post</h2>
   <p>Post id : <%=post.id %></p>
-  <a><form method="post" action="/editusername/<%=post.id%>"><textarea name="username"><%= post.username %></textarea><br><button>Submit</button></form></a>
+  <a><form method="post" action="/editusername/<%=user.id%>"><textarea name="username"><%= post.username %></textarea><br><button>Submit</button></form></a>
  <a> <form method="post" action="/edit/<%=post.id%>"><textarea rows="10" cols="25" name="content"><%=post.content%></textarea><br><button>Submit</button></form></a>
  </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

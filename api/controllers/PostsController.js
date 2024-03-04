@@ -10,7 +10,7 @@ module.exports = {
 
   // Get post create page.
   getPostCreation: async (req, res) => {
-    const user = req.session.user;
+    const user = req.user;
     if (user == undefined) {
       return res.redirect("/login")
     }
@@ -21,8 +21,8 @@ module.exports = {
 
 // Adding post to database and returning user to home page.
   postPostCreation: async (req, res) => {
-    const user = req.session.user;
-    console.log(req.session.user);
+    const user = req.user;
+
     const post = {
       username: user.username,
       userid: user.id,
@@ -44,8 +44,8 @@ module.exports = {
   postlike: async (req, res) => {
     try {
       const postid = req.params.id;
-      const userid = req.session.user.id;
-      const user = req.session.user;
+      const user = req.user;
+      const userid = user.id;
       const post = await Posts.findOne({ id: postid });
       
       if (user == undefined) {
@@ -89,14 +89,11 @@ module.exports = {
   // route to mypost page foe user where all post of user are there
   getmypost: async (req, res) => {
     try {
-      const user = req.session.user;
-      if (user == undefined) {
-        return res.redirect("/login");
-      }
-      else {
+      console.log(req.cookies.Authorization);
+      const user = req.user;
         const myposts = await Posts.find({ userid: user.id });
         res.view("Mypost",{myposts,user})
-      }
+      
     }
     catch (error) {
       console.log(error);
@@ -106,7 +103,7 @@ module.exports = {
   // deletepost by id
   deletepost: async (req, res) => {
     try {
-      if (req.session.user == undefined) {
+      if (req.user == undefined) {
         return res.redirect("/login");
        }
         let deletepost = await Posts.destroyOne({ id: req.params.id })
@@ -122,7 +119,7 @@ module.exports = {
   // Get editpost and username page
   editpost: async (req, res) => {
     try {
-      const user = req.session.user;
+      const user = req.user;
       if (user == undefined) {
         return res.redirect("/login")
       }
@@ -140,7 +137,7 @@ module.exports = {
   // Edit the post content page 
   editingpost: async (req, res) => {
     try {
-      if (req.session.user == undefined) {
+      if (req.user == undefined) {
         return res.redirect("/login")
        }
       let newcontent = req.body.content;

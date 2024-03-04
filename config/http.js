@@ -61,14 +61,14 @@ module.exports.http = {
       next();
     },
      
-    session: require('express-session')({
-      secret: 'yourSecretKey',
-      cookie: {
-        maxAge: 24 * 60 * 60 * 1000 // 1 day
-      },
-      resave: false,
-      saveUninitialized: true
-    })
+    // session: require('express-session')({
+    //   secret: 'yourSecretKey',
+    //   cookie: {
+    //     maxAge: 60 * 60 * 1000 // 1 hour
+    //   },
+    //   resave: false,
+    //   saveUninitialized: true
+    // })
 
     /***************************************************************************
     *                                                                          *

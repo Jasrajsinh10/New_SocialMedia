@@ -136,13 +136,10 @@ module.exports = {
   // edit username 
   editingusername: async (req, res) => {
     try {
-      if (req.user == undefined) {
-        return res.redirect("/login")
-      }
-     
-      let user = User.findOne({ id: req.params.id });
+     let user = await User.findOne({ id: req.params.id });
+      console.log("kjdskj")
       if (!user) {
-        return res.send
+        return res.status(500).send("USER DOESNOT EXSISTS");
       }
       
       await User.updateOne({ id: user.id }, { username: req.body.username });

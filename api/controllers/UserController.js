@@ -11,13 +11,13 @@ const validator = require("validator");
 module.exports = {
 
   // Get signup page for user registeration
-  getsignup: async (req, res) => {
-    res.view("signup");
+  getsignup: async (req, res) => { 
+      return res.view("signup");
   },
 
   // Get login page for user login and validation and return to login page if validation fails or on home page if validation succesful
   getlogin: async (req, res) => {
-    res.view("login");
+      return res.view("login");
   },
   
   // Add user details to database and password hashing and username and email validation and checking for same username and email
@@ -138,12 +138,17 @@ module.exports = {
     try {
       if (req.user == undefined) {
         return res.redirect("/login")
-       }
-      const user = req.session.user;
+      }
+     
+      let user = User.findOne({ id: req.params.id });
+      if (!user) {
+        return res.send
+      }
+      
       await User.updateOne({ id: user.id }, { username: req.body.username });
       await Posts.update({ userid: user.id }, { username: req.body.username });
       await Comments.update({ userid: user.id }, { username: req.body.username });
-  req.session.user.username = req.body.username; 
+  req.user.username = req.body.username; 
   res.redirect("/home");
     }
     catch (err) {

@@ -19,7 +19,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': { view: 'pages/homepage' },
+  '/': "UserController.gethome",
 
   // going from signup page to login page and adding a new user
   "POST /postsignup": "UserController.postsignup",

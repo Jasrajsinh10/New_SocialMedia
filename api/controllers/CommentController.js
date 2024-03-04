@@ -8,8 +8,9 @@
 module.exports = {
   getcomments: async (req, res) => {
     try {
-      if (req.user == undefined) {
-        res.redirect("/login")
+      let check = await Posts.findOne({ id: req.params.id })
+      if(!check) {
+        return res.status(404).send("Comment not found");
       }
       else {
         let thispostcomments = await Comments.find({ postid: req.params.id });
@@ -24,8 +25,9 @@ module.exports = {
   },
 
   postcomment: async (req, res) => {
-    if (req.user == undefined) {
-      res.redirect("/login")
+    let check = await Posts.findOne({ id: req.params.id });
+    if (!check) {
+      res.status(404).send("Post not found");
     }
     const post = await Posts.findOne({ id : req.params.id });
     const newcomment= await Comments.create({
@@ -39,8 +41,14 @@ module.exports = {
   },
 
   deletecomment: async (req, res) => {
+
     let deletecomment = await Comments.destroyOne({ id: req.params.id });
-    res.redirect("/home");
+    if (deletecomment) {
+      res.redirect("/home");
+    }
+    else {
+      res.status(404).send("Comment not found")
+    }
   }
 };
 

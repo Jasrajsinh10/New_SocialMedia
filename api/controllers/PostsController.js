@@ -103,11 +103,12 @@ module.exports = {
   // deletepost by id
   deletepost: async (req, res) => {
     try {
-      if (req.user == undefined) {
-        return res.redirect("/login");
-       }
+      let post = await Posts.findOne({ id: req.params.id })
+      if (!post) {
+          return res.status(404).send("Post Not Found")
+        }
         let deletepost = await Posts.destroyOne({ id: req.params.id })
-        console.log(deletepost);
+        
         return res.redirect("/Myposts");
       
     }
@@ -116,7 +117,7 @@ module.exports = {
     }
   },
 
-  // Get editpost and username page
+  // Get edit post and username page
   editpost: async (req, res) => {
     try {
       const user = req.user;
@@ -139,7 +140,11 @@ module.exports = {
     try {
       if (req.user == undefined) {
         return res.redirect("/login")
-       }
+      }
+      let post = await Posts.findOne({ id: req.params.id })
+      if (!post) {
+          return res.status(404).send("Post Not Found")
+        }
       let newcontent = req.body.content;
       let updatepost = await Posts.updateOne({ id: req.params.id }).set({ content: newcontent });
       console.log(updatepost.content);

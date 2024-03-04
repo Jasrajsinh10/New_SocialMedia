@@ -107,12 +107,23 @@ module.exports = {
   // Route to home page where all post are shown and session checking 
   gethome: async (req, res) => {
     try {
-      
+       const page = req.query.page || 1; // Current page number
+    const limit = 8; // Number of items per page
+    const skip = (page - 1) * limit; // Calculate the number of items to skip
       const user = req.user;
-      
+      const totalCount = await Posts.count(); // Total number of items in the database
+      const totalPages = Math.ceil(totalCount / limit); // Calculate total pages
+
+      const postall = await Posts.find().limit(limit).skip(skip); // Fetch items for the current page
+
+     
       console.log()
-        const postall = await Posts.find();
-        return res.view("home", { user, postall });
+      return res.view("home", {
+        user,
+        postall,
+        totalPages,
+        currentPage: page
+      });
       
     }
     catch (error) {

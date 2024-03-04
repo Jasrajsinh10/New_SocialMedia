@@ -20,6 +20,10 @@ module.exports = {
       model: 'Posts',
       required:true
     },
+    username: {
+      type: 'string',
+      required:true
+    }
   },
 
 };

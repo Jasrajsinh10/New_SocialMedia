@@ -27,12 +27,12 @@ module.exports = {
     if (req.user == undefined) {
       res.redirect("/login")
     }
-    console.log(req.user);
     const post = await Posts.findOne({ id : req.params.id });
     const newcomment= await Comments.create({
       userid: req.user.id,
       postid: post.id,
-      text:req.body.text
+      text: req.body.text,
+      username: req.user.username
     })
     const user = await User.findOne(req.user.id).populate('comments');
     return res.redirect("/home");

@@ -19,58 +19,58 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': "UserController.gethome",
+  '/': 'UserController.gethome',
 
   // going from signup page to login page and adding a new user
-  "POST /postsignup": "UserController.postsignup",
-  
-  // going from login page to home page
-  "POST /postlogin": "UserController.postlogin",
- 
-  // getting a login page 
-  "GET /login": "UserController.getlogin",
+  'POST /postsignup': 'UserController.postsignup',
 
-   // getting a signup page 
-  "GET /signup": "UserController.getsignup",
+  // going from login page to home page
+  'POST /postlogin': 'UserController.postlogin',
+
+  // getting a login page
+  'GET /login': 'UserController.getlogin',
+
+  // getting a signup page
+  'GET /signup': 'UserController.getsignup',
 
   // getting a post creation page
-  "GET /postcreation": "PostsController.getPostCreation",
+  'GET /postcreation': 'PostsController.getPostCreation',
 
   // making a post by the loged in user and time when created
-  "POST /userpostcreate": "PostsController.postPostCreation",
+  'POST /userpostcreate': 'PostsController.postPostCreation',
 
   // liking a post for user
-  "POST /like/:id": "PostsController.postlike",
+  'POST /like/:id': 'PostsController.postlike',
 
   // getting home page
-  "GET /home": "UserController.gethome",
+  'GET /home': 'UserController.gethome',
 
   // getting all user posts
-  "GET /Myposts": "PostsController.getmypost",
+  'GET /Myposts': 'PostsController.getmypost',
 
-  // delete post 
-  "POST /delete/:id": "PostsController.deletepost" ,
+  // delete post
+  'POST /delete/:id': 'PostsController.deletepost' ,
 
-  // Get editpost page 
-  "GET /edit/:id": "PostsController.editpost",
-  
+  // Get editpost page
+  'GET /edit/:id': 'PostsController.editpost',
+
   // Edit Post by id
-  "POST /edit/:id": "PostsController.editingpost",
+  'POST /edit/:id': 'PostsController.editingpost',
 
   // Edit Username
-  "POST /editusername/:id": "UserController.editingusername",
+  'POST /editusername/:id': 'UserController.editingusername',
 
   // GET all comments of posts
-  "GET /comment/:id": "CommentController.getcomments",
+  'GET /comment/:id': 'CommentController.getcomments',
 
   // POST the comment in post
-  "POST /postcomment/:id": "CommentController.postcomment",
+  'POST /postcomment/:id': 'CommentController.postcomment',
 
   // Logout for user
-  "GET /logout": "UserController.logout",
+  'GET /logout': 'UserController.logout',
 
   // delete post by id
-  "POST /deletecomment/:id" : "CommentController.deletecomment"
+  'POST /deletecomment/:id' : 'CommentController.deletecomment'
 
   /***************************************************************************
   *                                                                          *

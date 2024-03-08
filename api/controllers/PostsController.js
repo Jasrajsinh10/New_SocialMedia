@@ -4,22 +4,22 @@
  * @description :: Server-side actions for handling incoming requests.
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
-const _ = require("lodash");
+
 
 module.exports = {
 
   // Get post create page.
   getPostCreation: async (req, res) => {
     const user = req.user;
-    if (user == undefined) {
-      return res.redirect("/login")
+    if (user === undefined) {
+      return res.redirect('/login');
     }
     else {
-      res.view("postcreation", { user });
+      res.view('postcreation', { user });
     }
   },
 
-// Adding post to database and returning user to home page.
+  // Adding post to database and returning user to home page.
   postPostCreation: async (req, res) => {
     const user = req.user;
 
@@ -28,15 +28,15 @@ module.exports = {
       userid: user.id,
       content: req.body.content
     };
-    console.log(post)
-    if (user == undefined) {
-      res.redirect("/login");
+    console.log(post);
+    if (user === undefined) {
+      res.redirect('/login');
     }
     else {
-    
+
       const userpost = await Posts.create(post).fetch();
       console.log(userpost);
-      res.redirect("/home");
+      res.redirect('/home');
     }
   },
 
@@ -47,37 +47,33 @@ module.exports = {
       const user = req.user;
       const userid = user.id;
       const post = await Posts.findOne({ id: postid });
-      
-      if (user == undefined) {
-        return res.redirect("/login")
+
+      if (user === undefined) {
+        return res.redirect('/login');
       }
       else {
         if (post) {
-        
-          let liked = post.likes
-        
+
+          let liked = post.likes;
+
           const likedIndex = post.likes.indexOf(userid);
-        
 
-          if (likedIndex == -1) {
+
+          if (likedIndex === -1) {
             // User has already liked the post, so remove the like
-          
-            liked.push(userid);
-            console.log("liked");
-            await Posts.update({ id: postid }, { likes: liked });
 
-            return res.redirect("/home");
-         
+            liked.push(userid);
+            await Posts.update({ id: postid }, { likes: liked });
+            return res.redirect('/home');
           } else {
             // User hasn't liked the post, so add the like
             liked.splice(likedIndex, 1);
-            console.log("unliked");
             await Posts.update({ id: postid }, { likes: liked });
-            return res.redirect("/home");
+            return res.redirect('/home');
           }
         }
         else {
-          return res.send("this is bullshit");
+          return res.send('this is bullshit');
         }
       }
     }
@@ -91,9 +87,9 @@ module.exports = {
     try {
       console.log(req.cookies.Authorization);
       const user = req.user;
-        const myposts = await Posts.find({ userid: user.id });
-        res.view("Mypost",{myposts,user})
-      
+      const myposts = await Posts.find({ userid: user.id });
+      res.view('Mypost',{myposts,user});
+
     }
     catch (error) {
       console.log(error);
@@ -103,14 +99,14 @@ module.exports = {
   // deletepost by id
   deletepost: async (req, res) => {
     try {
-      let post = await Posts.findOne({ id: req.params.id })
+      let post = await Posts.findOne({ id: req.params.id });
       if (!post) {
-          return res.status(404).send("Post Not Found")
-        }
-        let deletepost = await Posts.destroyOne({ id: req.params.id })
-        
-        return res.redirect("/Myposts");
-      
+        return res.status(404).send('Post Not Found');
+      }
+      await Posts.destroyOne({ id: req.params.id });
+
+      return res.redirect('/Myposts');
+
     }
     catch(err) {
       console.log(err);
@@ -121,13 +117,13 @@ module.exports = {
   editpost: async (req, res) => {
     try {
       const user = req.user;
-      if (user == undefined) {
-        return res.redirect("/login")
+      if (user === undefined) {
+        return res.redirect('/login');
       }
       else {
         let post = await Posts.findOne({ id: req.params.id });
-      
-        return res.view("editpost", { post, user });
+
+        return res.view('editpost', { post, user });
       }
     }
     catch(err) {
@@ -135,24 +131,24 @@ module.exports = {
     }
   },
 
-  // Edit the post content page 
+  // Edit the post content page
   editingpost: async (req, res) => {
     try {
-      if (req.user == undefined) {
-        return res.redirect("/login")
+      if (req.user === undefined) {
+        return res.redirect('/login');
       }
-      let post = await Posts.findOne({ id: req.params.id })
+      let post = await Posts.findOne({ id: req.params.id });
       if (!post) {
-          return res.status(404).send("Post Not Found")
-        }
+        return res.status(404).send('Post Not Found');
+      }
       let newcontent = req.body.content;
       let updatepost = await Posts.updateOne({ id: req.params.id }).set({ content: newcontent });
       console.log(updatepost.content);
-      return res.redirect("/home");
+      return res.redirect('/home');
     }
     catch(err) {
-      console.log(err)
+      console.log(err);
     }
   },
 
-}
+};

@@ -19,25 +19,25 @@ module.exports.policies = {
 
   // '*': true,
   UserController: {
-    gethome: "isLoggedIn",
-    getsignup: "isLoggedIn",
-    getlogin: "isLoggedIn",
-    
+    gethome: 'isLoggedIn',
+    getsignup: 'isLoggedIn',
+    getlogin: 'isLoggedIn',
+
   },
   PostsController: {
-    
-    getPostCreation: "isLoggedIn",
-    postPostCreation: "isLoggedIn",
-    postlike: "isLoggedIn",
-    getmypost: "isLoggedIn",
-    deletepost: "isLoggedIn",
-    editingpost: "isLoggedIn",
-    editpost: "isLoggedIn"
+
+    getPostCreation: 'isLoggedIn',
+    postPostCreation: 'isLoggedIn',
+    postlike: 'isLoggedIn',
+    getmypost: 'isLoggedIn',
+    deletepost: 'isLoggedIn',
+    editingpost: 'isLoggedIn',
+    editpost: 'isLoggedIn'
   },
   CommentController: {
-    getcomments: "isLoggedIn",
-    postcomment: "isLoggedIn",
-    deletecomment: "isLoggedIn",
+    getcomments: 'isLoggedIn',
+    postcomment: 'isLoggedIn',
+    deletecomment: 'isLoggedIn',
   }
 
 

@@ -5,7 +5,7 @@
  * @docs        :: https://sailsjs.com/docs/concepts/models-and-orm/models
  */
 
-const mongoose = require("mongoose");
+
 
 module.exports = {
 
@@ -38,7 +38,7 @@ module.exports = {
     likes: {
       type: 'json',
       columnType:'array',
-       defaultsTo: []
+      defaultsTo: []
     }
   }
 

@@ -9,13 +9,13 @@
 <body>
   <nav class="navbar navbar-expand-lg bg-body-tertiary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/home">Home</a>
+    <a class="navbar-brand" href="/home?id=<%=user.id%>">Home</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link active" aria-current="page" href="/Myposts"><%=user.username%></a>
+        <a class="nav-link active" aria-current="page" href="/Myposts?id=<%=user.id%>"><%=user.username%></a>
         <a class="nav-link" href="/postcreation">Create Posts</a>
         <a class="nav-link" href="/logout">Logout</a>
       </div>
@@ -50,7 +50,7 @@
  <form action="/postcomment/<%=post.id%>" method="post">
   <div class="mb-3" style="width: 50%; margin:0 25%">
   <label for="exampleFormControlTextarea1" class="form-label">Add Comment Here</label>
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="2" name="text" ></textarea>
+  <textarea class="form-control" id="exampleFormControlTextarea1" rows="1" name="text" ></textarea>
   <br>
   <button type="submit" class="btn btn-primary">Submit</button>
 </div>

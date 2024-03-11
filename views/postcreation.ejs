@@ -7,14 +7,14 @@
   <title>Posts</title>
 </head>
 <body>
-   <form action="/userpostcreate" method="post">
+   <form action="/userpostcreate?id=<%=user.id%>" method="post">
     <h2>post is created by <%=user.username%></h2>
     <div class="form-group">
       <label for="content">Enter yuor post content</label>
       <textarea cols="35" rows="10" id="content" name="content" placeholder="Enter your content" required autocomplete="off" style="display: flex ; justify-content: center;" ></textarea>
     </div>
     <button type="submit" class="submit-btn" ><a style = "color : white">Submit</a></button><br>
-    <a class="submit-btn" role="button" href="/home" style = "color : white; text-align : center">Exit</a>
+    <a class="submit-btn" role="button" href="/home?id=<%=user.id%>" style = "color : white; text-align : center">Exit</a>
   </form>
 </body>
 </html>

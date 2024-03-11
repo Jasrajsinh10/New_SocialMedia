@@ -7,7 +7,7 @@
         <h5 class="card-title">Post created By <%=post.username%></h5><br><br>
         <h6 class="card-subtitle mb-2 text-body-secondary">Created At : <%=post.createdAt%></h6><br><br>
         <p class="card-text">Post Content :<br> <%=post.content%></p>
-        <form action="/like/<%=post.id%>" method="post"><button type="submit">LIKE <%=post.likes.length%></button></form>
+        <form action="/like/<%=post.id%>?uid=<%=user.id%>" method="post"><button type="submit">LIKE <%=post.likes.length%></button></form>
          <form action="/comment/<%=post.id%>" method="get"><button type="submit">Comments</button></form>
       </div>
     </div>
@@ -18,7 +18,7 @@
       <% if (i === currentPage) { %>
         <span class="active"><%= i %></span>
       <% } else { %>
-        <a href="/home?page=<%= i %>"><%= i %></a>
+        <a href="/home?id=<%=user.id%>&page=<%= i %>"><%= i %></a>
       <% } %>
     <% } %>
   </div>

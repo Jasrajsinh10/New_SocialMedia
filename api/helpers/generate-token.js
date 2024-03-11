@@ -1,9 +1,9 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 module.exports = {
-  friendlyName: "Generate token",
+  friendlyName: 'Generate token',
 
-  description: "",
+  description: '',
 
   inputs: {
     username: {
@@ -19,17 +19,17 @@ module.exports = {
       required: true
     },
     expiresIn:{
-      type: "string",
+      type: 'string',
       required: true,
     }
   },
 
   exits: {
     success: {
-      description: "Token is generate.",
+      description: 'Token is generate.',
     },
     error: {
-      description: "Token is not generate",
+      description: 'Token is not generate',
     },
   },
 

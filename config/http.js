@@ -40,12 +40,12 @@ module.exports.http = {
       'flash',
       'favicon',
     ],
-     flash: function(req, res, next) {
+    flash: function(req, res, next) {
       // Define your flash middleware logic here
       // For example, you might want to attach `req.flash` functionality
-       req.flash = function (type, message) {
-         console.log('req.flash');
-         console.log(type, message);
+      req.flash = function (type, message) {
+        console.log('req.flash');
+        console.log(type, message);
         if (!req.session.flash) {
           req.session.flash = {};
         }
@@ -53,14 +53,14 @@ module.exports.http = {
         if (!req.session.flash[type]) {
           req.session.flash[type] = [];
         }
-          console.log(req.session.flash);
-         req.session.flash[type].push(message);
-          console.log(req.session.flash);
+        console.log(req.session.flash);
+        req.session.flash[type].push(message);
+        console.log(req.session.flash);
       };
       // Call next() to proceed to the next middleware
       next();
     },
-     
+
     // session: require('express-session')({
     //   secret: 'yourSecretKey',
     //   cookie: {

@@ -49,7 +49,11 @@ describe('userController test', () => {
     })
   });
 
-  
+  after((done) => {
+    User.destroy({
+      name: ['TestUser'],
+    }).exec(done);
+  });
 
 
 

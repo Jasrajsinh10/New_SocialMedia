@@ -21,32 +21,32 @@ module.exports = {
 
   // Adding post to database and returning user to home page.
   postPostCreation: async (req, res) => {
-    const user = req.user;
-
+    const users = await User.find({ id: req.query.id });
+    const user = users[0];
     const post = {
       username: user.username,
       userid: user.id,
       content: req.body.content
     };
-    console.log(post);
-    if (user === undefined) {
-      res.redirect('/login');
+    // console.log("this is iit");
+    
+      const userpost = await Posts.create(post).fetch();
+    if (userpost) {
+      res.redirect(`/home?id=${user.id}`);
     }
     else {
-
-      const userpost = await Posts.create(post).fetch();
-      console.log(userpost);
-      res.redirect('/home');
+      return res.status(500).send("SERVER_ERROR");
     }
   },
 
   // Post like and Unlike code.
   postlike: async (req, res) => {
+
     try {
       const postid = req.params.id;
-      const user = req.user;
-      const userid = user.id;
       const post = await Posts.findOne({ id: postid });
+      const userid = req.query.uid;
+      const user = await User.findOne({ id: userid });
 
       if (user === undefined) {
         return res.redirect('/login');
@@ -64,12 +64,12 @@ module.exports = {
 
             liked.push(userid);
             await Posts.update({ id: postid }, { likes: liked });
-            return res.redirect('/home');
+            return res.redirect(`/home?id=${user.id}`);
           } else {
             // User hasn't liked the post, so add the like
             liked.splice(likedIndex, 1);
             await Posts.update({ id: postid }, { likes: liked });
-            return res.redirect('/home');
+            return res.redirect(`/home?id=${user.id}`);
           }
         }
         else {
@@ -85,9 +85,10 @@ module.exports = {
   // route to mypost page foe user where all post of user are there
   getmypost: async (req, res) => {
     try {
-      console.log(req.cookies.Authorization);
-      const user = req.user;
-      const myposts = await Posts.find({ userid: user.id });
+     
+      const user = await User.findOne({ id: req.query.id });
+     
+      const myposts = await Posts.find({ userid: req.user.id });
       res.view('Mypost',{myposts,user});
 
     }
@@ -105,7 +106,7 @@ module.exports = {
       }
       await Posts.destroyOne({ id: req.params.id });
 
-      return res.redirect('/Myposts');
+      return res.redirect(`/Myposts?id=${post.userid}`);
 
     }
     catch(err) {
@@ -116,15 +117,17 @@ module.exports = {
   // Get edit post and username page
   editpost: async (req, res) => {
     try {
-      const user = req.user;
-      if (user === undefined) {
-        return res.redirect('/login');
+ 
+        let post = await Posts.findOne({ id: req.params.id });
+      const user = await User.findOne({ id: post.userid });
+      if (!post) {
+         return res.status(400).send("Post is is incorrect");
+
       }
       else {
-        let post = await Posts.findOne({ id: req.params.id });
-
-        return res.view('editpost', { post, user });
+         return res.view('editpost', { post, user });
       }
+      
     }
     catch(err) {
       console.log(err);
@@ -134,17 +137,23 @@ module.exports = {
   // Edit the post content page
   editingpost: async (req, res) => {
     try {
-      if (req.user === undefined) {
-        return res.redirect('/login');
-      }
-      let post = await Posts.findOne({ id: req.params.id });
+      const pid = req.params.id;
+      console.log("gjhgjhgjh",pid);
+      let post = await Posts.findOne({ id: pid });
+      console.log(post);
+      const user = await User.findOne({ id: post.userid });
+      console.log("2");
       if (!post) {
         return res.status(404).send('Post Not Found');
       }
+      console.log("here")
       let newcontent = req.body.content;
-      let updatepost = await Posts.updateOne({ id: req.params.id }).set({ content: newcontent });
-      console.log(updatepost.content);
-      return res.redirect('/home');
+      console.log(newcontent);
+      const id = { id: pid };
+      const con = { content: newcontent };
+      let updatepost = await Posts.update(id,con).fetch();
+      console.log("hjjhgjgj",updatepost);
+      return res.redirect(`/home?id=${user.id}`);
     }
     catch(err) {
       console.log(err);

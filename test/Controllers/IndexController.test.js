@@ -3,18 +3,13 @@ const chaiHttp = require('chai-http');
 
 const { expect } = chai;
 
-// -----------------------------------------------------
-// -------------------------------------------------------
 
-// const server = 'http://localhost:1337';
-// const session = require('supertest-session');
-// const app = require('../../../app');
-// const testSession = session(app);
 
 chai.use(chaiHttp);
 
 
 describe('GET Pages', () => {
+  // Home page
   it('should return home page', async () => {
     chai
     .request(sails.hooks.http.app)
@@ -28,7 +23,7 @@ describe('GET Pages', () => {
       // console.log(res.text);
     });
   });
-
+  // signup page
   it('should return signup page', async () => {
     chai
     .request(sails.hooks.http.app)
@@ -42,7 +37,7 @@ describe('GET Pages', () => {
       // console.log(res.text);
     });
   });
-
+  // LOGIN PAGE
   it('should return login page', async () => {
     chai
     .request(sails.hooks.http.app)
@@ -56,7 +51,7 @@ describe('GET Pages', () => {
       // console.log(res.text);
     });
   });
-
+  // USERPOST PAGE
   it('should return userposts page', async () => {
     chai
     .request(sails.hooks.http.app)
@@ -70,7 +65,7 @@ describe('GET Pages', () => {
       // console.log(res.text);
     });
   });
-
+  //  POST CREATE PAGE
   it('should return postcreate page', async () => {
     chai
     .request(sails.hooks.http.app)
@@ -83,11 +78,19 @@ describe('GET Pages', () => {
       expect(res).to.be.html;
       // console.log(res.text);
     });
-
+    //  HOME PAGE THROUGH DIFFERENT ROUTE
     it('get homepage', async() => {
       const res = await chai
         .request(sails.hooks.http.app)
         .get("/home")
+      expect(res.statusCode).to.equal(200);
+      expect(res).to.be.html;
+    })
+    // POST EDITING PAGE
+    it('get editpost page', async() => {
+      const res = await chai
+        .request(sails.hooks.http.app)
+        .get("/edit/")
       expect(res.statusCode).to.equal(200);
       expect(res).to.be.html;
     })

@@ -6,51 +6,44 @@ chai.use(chaiHttp);
 describe('PostController test', () => {
   describe('Post create', () => {
     // this is signup post test case
-    it('should create a new user and redirect to /login', async () => {
-      const newUser = {
-        username: 'TestUser',
-        email: 'test@example.com',
-        password: 'testpassword'
-      };
+    it('should create a new post and redirect to /home', async () => {
+      
+      const userid = '65ee9175aee2cb6e20d292f7';
+      const username = "TestUser";
+      const content = 'sdjfhskjfhskdjf';
       const res = await chai
                 .request(sails.hooks.http.app)
-                .post('/postsignup')
-                .send(newUser)
+                .post('/userpostcreate')
+                .send({ userid, username,content })
+                .set('bypass-policies-for-testing', 'true');
       expect(res.statusCode).to.equal(200);
       expect(res).to.be.html;
     });
-    it('should redirect to signup again if user already exists', async () => {
-      const newUser = {
-        username: 'TestUser',
-        email: 'test@example.com',
-        password: 'testpassword'
-      };
-      const res = await chai
-                  .request(sails.hooks.http.app)
-                  .post('/postsignup')
-                  .send(newUser)
-      expect(res.statusCode).to.equal(200); // user already exist
-    });
   });
-  describe('Use login page testing', () => {
-    //this is login page post test case
-    it('should check user details and redirect to login page if details are incorect', async () => {
-      const user = {
-        username: 'TestUser',
-        password: 'testpassword'
-      };
-      const res = await chai
-        .request(sails.hooks.http.app)
-        .post("/postlogin")
-        .send(user)
-      expect(res.statusCode).to.equal(200);
-      expect(res).to.be.html;
-      // expect(res.body.token).to.have.property(String);
-    })
-  });
-
   
-
+   describe('Post editing', () => {
+    // this is post editing
+    it('should edit a post and redirect to /home', async () => {
+      const content = 'lets it';
+      const res = await chai
+                .request(sails.hooks.http.app)
+                .post('/edit/65eed4a8b95386a526bbd2c3')
+                .send({ content })
+                .set('bypass-policies-for-testing', 'true');
+      expect(res.statusCode).to.equal(200);
+      expect(res).to.be.html;
+    });
+  });
+ describe('Post DELETE', () => {
+    // this is post deleting
+    it('should DELETE a post and redirect to /home', async () => {
+      const res = await chai
+                .request(sails.hooks.http.app)
+                .post('/delete/65eecbc948d7e31b5e0d8025')
+                .set('bypass-policies-for-testing', 'true');
+      expect(res.statusCode).to.equal(404);
+    });
+  });
 
 
 

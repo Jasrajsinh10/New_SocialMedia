@@ -25,11 +25,11 @@ module.exports = {
   },
 
   postcomment: async (req, res) => {
-    let check = await Posts.findOne({ id: req.params.id });
-    if (!check) {
+    const post = await Posts.findOne({ id: req.params.id });
+    if (!post) {
       res.status(404).send('Post not found');
     }
-    const post = await Posts.findOne({ id : req.params.id });
+    
     await Comments.create({
       userid: req.user.id,
       postid: post.id,
@@ -38,14 +38,14 @@ module.exports = {
     });
     const user = await User.findOne(req.user.id).populate('comments');
     console.log(user);
-    return res.redirect('/home');
+    return res.redirect(`/home?id=${user.id}`);
   },
 
   deletecomment: async (req, res) => {
 
     let deletecomment = await Comments.destroyOne({ id: req.params.id });
     if (deletecomment) {
-      res.redirect('/home');
+      res.redirect(`/home?id=${deletecomment.userid}`);
     }
     else {
       res.status(404).send('Comment not found');

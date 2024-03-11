@@ -7,6 +7,8 @@
 
 const bcrypt = require('bcrypt');
 const validator = require('validator');
+const jwt = require('jsonwebtoken');
+require('dotenv');
 
 module.exports = {
 
@@ -102,8 +104,8 @@ module.exports = {
               httpOnly: true
             });
           }
-          console.log("jaajaja")
-          return res.redirect('/home');
+          
+          return res.redirect(`/home?id=${checkuser.id}`);
         }
         else {
           req.addFlash('error', 'Wrong credentials');
@@ -120,10 +122,12 @@ module.exports = {
   // Route to home page where all post are shown and session checking
   gethome: async (req, res) => {
     try { 
+      console.log(req.query.id);
+      const users = await User.find({ id: req.query.id });
+      const user = users[0]
       const page = req.query.page || 1; // Current page number
       const limit = 8; // Number of items per page
       const skip = (page - 1) * limit; // Calculate the number of items to skip
-      const user = req.user;
       const totalCount = await Posts.count(); // Total number of items in the database
       const totalPages = Math.ceil(totalCount / limit); // Calculate total pages
       const postall = await Posts.find().limit(limit).skip(skip); // Fetch items for the current page
@@ -156,8 +160,7 @@ module.exports = {
       await User.updateOne({ id: user.id }, { username: req.body.username });
       await Posts.update({ userid: user.id }, { username: req.body.username });
       await Comments.update({ userid: user.id }, { username: req.body.username });
-      req.user.username = req.body.username;
-      res.redirect('/home');
+      res.redirect(`/home?id=${user.id}`);
     }
     catch (err) {
       console.log(err);
